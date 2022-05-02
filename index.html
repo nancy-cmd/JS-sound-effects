@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/sounds/style.css">
+    <title>Sound Effects</title>
+</head>
+<body>
+
+    <div class="keys">
+
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+            <span class="sound">clock</span>
+        </div>
+        <div data-key="72" class="key">
+            <kbd>H</kbd>
+            <span class="sound">ding</span>
+        </div>
+        <div data-key="78" class="key">
+            <kbd>N</kbd>
+            <span class="sound">epic</span>
+        </div>
+        <div data-key="66" class="key">
+            <kbd>B</kbd>
+            <span class="sound">flute</span>
+        </div>
+        <div data-key="67" class="key">
+            <kbd>C</kbd>
+            <span class="sound">fly</span>
+        </div>
+        <div data-key="69" class="key">
+            <kbd>E</kbd>
+            <span class="sound">guitar</span>
+        </div>
+        <div data-key="84" class="key">
+            <kbd>T</kbd>
+            <span class="sound">swoosh</span>
+        </div>
+        <div data-key="32" class="key">
+            <kbd>SPACE-BAR</kbd>
+            <span class="sound">tribal-dance</span>
+        </div>
+         
+    </div>
+    <audio data-key="65" src="tunes/clock.wav"></audio>
+    <audio data-key="72" src="tunes/ding.wav"></audio>
+    <audio data-key="78" src="tunes/"></audio>
+    <audio data-key="66" src="tunes/flute.wav"></audio>
+    <audio data-key="67" src="tunes/fly.wav"></audio>
+    <audio data-key="69" src="tunes/guitar.wav"></audio>
+    <audio data-key="84" src="tunes/swoosh.wav"></audio>
+    <audio data-key="32" src="tunes/tribal-dance.wav"></audio>
+
+    <script>
+        window.addEventListener('keydown', function(e) {
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+            const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+            if(!audio) return; //stops the function from running
+            audio.currentTime = 0; //this rewinds to the start of the audio so it plays multiple times
+            audio.play();
+            key.classList.add('playing'); //this adds the class of playing once the key has been clicked.
+        });
+        function removeTransition(e) {
+            if(e.propertyName !== 'transform') return; //this will skip it if its not a transform
+            this.classList.remove('playing'); //this removes everything added to it when playing
+        }
+        const keys = document.querySelectorAll('.key');
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+    </script>
+    
+</body>
+</html>
